@@ -11,16 +11,19 @@ public class WinDraw extends ToyGraphics implements MouseListener {
 	static final int RECTANGLE = 1;
 	static final int CIRCLE = 2;
 	static final int LINE = 3;
+	static final int FILLRECTANGLE = 4;
+	static final int FILLCIRCLE = 5;
+	static final int FILLLINE = 6;
 
 	boolean isDragging = false;
 	int sx, sy, ex, ey; // Mouse pressed (sx,sy), released (ex,ey)
 	Color strokeColor = Color.red;
 	int shapeType = RECTANGLE;
 
-	int[][] menuArea = { { 0, 0, 100, 30 }, { 0, 30, 100, 30 }, { 0, 60, 100, 30 }, { 0, 90, 100, 30 },
-			{ 0, 120, 100, 30 },{ 0, 150, 100, 30 },{ 0, 180, 100, 30 },{ 0, 210, 100, 30 },{ 0, 240, 100, 30 },
-			{ 0, 270, 100, 30 },{ 0, 300, 100, 30 } };
-	String[] menuString = { "Redraw", "Red", "Blue", "Yellow","Pink","Rectangle", "Circle","Line","Undo","Redo","All Clear"};
+	int[][] menuArea = { { 0, 0, 140, 30 }, { 0, 30, 140, 30 }, { 0, 60, 140, 30 }, { 0, 90, 140, 30 },
+			{ 0, 120, 140, 30 },{ 0, 150, 140, 30 },{ 0, 180, 140, 30 },{ 0, 210, 140, 30 },{0, 240, 140, 30},{0, 270, 140, 30},{0, 300, 140, 30},{ 0, 330, 140, 30 },
+			{ 0, 360, 140, 30 } };
+	String[] menuString = { "Redraw", "Red", "Blue", "Yellow","Pink","Rectangle", "Circle","Line","FillRectangle", "FillCircle","Undo","Redo","All Clear"};
 	ArrayList<Shape> shapes;
 	Shape shapeUndo;
 
@@ -78,12 +81,18 @@ public class WinDraw extends ToyGraphics implements MouseListener {
 					shapeType = LINE;
 					break;
 				case 8:
-					undo();
+					shapeType = FILLRECTANGLE;
 					break;
 				case 9:
-					redo();
+					shapeType = FILLCIRCLE;
 					break;
 				case 10:
+					undo();
+					break;
+				case 11:
+					redo();
+					break;
+				case 12:
 					allClear();
 					break;
 				default:
@@ -159,6 +168,12 @@ public class WinDraw extends ToyGraphics implements MouseListener {
 			break;
 		case LINE:
 			shape = new Line(sx,sy,ex,ey,3,strokeColor,null);
+			break;
+		case FILLRECTANGLE:
+			shape = new Rect(x, y, w, h, 3, strokeColor, strokeColor);
+			break;
+		case FILLCIRCLE:
+			shape = new Circle(x, y, w, h, 3, strokeColor, strokeColor);
 			break;
 		default:
 			shape = new Rect(x, y, w, h, 3, strokeColor, null);
