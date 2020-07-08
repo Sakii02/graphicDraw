@@ -24,9 +24,9 @@ public class WinDraw extends ToyGraphics implements MouseListener {
 	int shapeType = RECTANGLE;
 	
 
-	int[][] menuArea = { { 0, 0, menuWidth, menuHeight }, { 0, 30, menuWidth, menuWidth }, { 0, 60, menuWidth, menuWidth }, { 0, 90, menuWidth, menuWidth },
-			{ 0, 120, menuWidth, menuWidth },{ 0, 150, menuWidth, menuWidth },{ 0, 180, menuWidth, menuWidth },{ 0, 210, menuWidth, menuWidth },{0, 240, menuWidth, menuWidth},{0, 270, menuWidth, menuWidth},{0, 300, menuWidth, menuWidth},{ 0, 330, menuWidth, menuWidth },
-			{ 0, 360, menuWidth, menuWidth },{ 0, 390, menuWidth, menuWidth },{0,420,menuWidth,menuWidth} };
+	int[][] menuArea = { { 0, 0, menuWidth, menuHeight }, { 0, 30, menuWidth, menuHeight }, { 0, 60, menuWidth, menuHeight }, { 0, 90, menuWidth, menuHeight },
+			{ 0, 120, menuWidth, menuHeight },{ 0, 150, menuWidth, menuHeight },{ 0, 180, menuWidth, menuHeight },{ 0, 210, menuWidth, menuHeight },{0, 240, menuWidth, menuHeight},{0, 270, menuWidth, menuHeight},{0, 300, menuWidth, menuHeight},{ 0, 330, menuWidth, menuHeight },
+			{ 0, 360, menuWidth, menuHeight },{ 0, 390, menuWidth, menuHeight },{0,420,menuWidth,menuHeight} };
 	String[] menuString = { "Redraw", "Red", "Blue", "Yellow","Pink","Rectangle", "Circle","Line","FillRectangle", "FillCircle","Undo","Redo","MoveShape","AllClear","AllClearCancel"};
 	ArrayList<Shape> shapes;
 	ArrayList<Shape> shapesClone;
