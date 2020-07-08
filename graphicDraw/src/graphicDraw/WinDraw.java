@@ -8,23 +8,28 @@ import java.util.ArrayList;
 
 public class WinDraw extends ToyGraphics implements MouseListener {
 
+	
 	static final int RECTANGLE = 1;
 	static final int CIRCLE = 2;
 	static final int LINE = 3;
 	static final int FILLRECTANGLE = 4;
 	static final int FILLCIRCLE = 5;
 	static final int FILLLINE = 6;
+	private static final int menuWidth = 140;
+	private static final int menuHeight = 30;
 
 	boolean isDragging = false;
 	int sx, sy, ex, ey; // Mouse pressed (sx,sy), released (ex,ey)
 	Color strokeColor = Color.red;
 	int shapeType = RECTANGLE;
+	
 
-	int[][] menuArea = { { 0, 0, 140, 30 }, { 0, 30, 140, 30 }, { 0, 60, 140, 30 }, { 0, 90, 140, 30 },
-			{ 0, 120, 140, 30 },{ 0, 150, 140, 30 },{ 0, 180, 140, 30 },{ 0, 210, 140, 30 },{0, 240, 140, 30},{0, 270, 140, 30},{0, 300, 140, 30},{ 0, 330, 140, 30 },
-			{ 0, 360, 140, 30 } };
-	String[] menuString = { "Redraw", "Red", "Blue", "Yellow","Pink","Rectangle", "Circle","Line","FillRectangle", "FillCircle","Undo","Redo","All Clear"};
+	int[][] menuArea = { { 0, 0, menuWidth, menuHeight }, { 0, 30, menuWidth, menuWidth }, { 0, 60, menuWidth, menuWidth }, { 0, 90, menuWidth, menuWidth },
+			{ 0, 120, menuWidth, menuWidth },{ 0, 150, menuWidth, menuWidth },{ 0, 180, menuWidth, menuWidth },{ 0, 210, menuWidth, menuWidth },{0, 240, menuWidth, menuWidth},{0, 270, menuWidth, menuWidth},{0, 300, menuWidth, menuWidth},{ 0, 330, menuWidth, menuWidth },
+			{ 0, 360, menuWidth, menuWidth },{ 0, 390, menuWidth, menuWidth },{0,420,menuWidth,menuWidth} };
+	String[] menuString = { "Redraw", "Red", "Blue", "Yellow","Pink","Rectangle", "Circle","Line","FillRectangle", "FillCircle","Undo","Redo","MoveShape","AllClear","AllClearCancel"};
 	ArrayList<Shape> shapes;
+	ArrayList<Shape> shapesClone;
 	Shape shapeUndo;
 
 	public WinDraw() {
@@ -93,7 +98,13 @@ public class WinDraw extends ToyGraphics implements MouseListener {
 					redo();
 					break;
 				case 12:
+					moveShape();
+					break;
+				case 13:
 					allClear();
+					break;
+				case 14:
+					allClearCancel();
 					break;
 				default:
 					System.err.println("no menu");
@@ -116,7 +127,13 @@ public class WinDraw extends ToyGraphics implements MouseListener {
 		repaint(0, 0, width, height);
 	}
 	void allClear() {
+		
+		shapesClone = (ArrayList<Shape>) shapes.clone();
 		shapes.clear();
+		redraw();
+	}
+	void allClearCancel() {
+		shapes = shapesClone;
 		redraw();
 	}
 	void undo() {
@@ -125,6 +142,14 @@ public class WinDraw extends ToyGraphics implements MouseListener {
 	}
 	void redo() {
 		shapes.add(shapeUndo);
+		redraw();
+	}
+	void moveShape() {
+		Shape doubleShape;
+		doubleShape = shapes.get(shapes.size()-1);
+		shapes.add(doubleShape);
+		doubleShape.x += 30;
+		doubleShape.y -= 30;
 		redraw();
 	}
 
